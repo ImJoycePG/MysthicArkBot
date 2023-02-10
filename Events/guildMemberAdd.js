@@ -1,5 +1,7 @@
+const config = new require('../config.json');
+
 module.exports = async (client, Discord, member) => {
-  const { createCanvas, loadImage } = require('canvas');
+  const { createCanvas, loadImage, Canvas } = require('canvas');
 
   //AUTO ROLE
   const role = member.guild.roles.cache.find((role) => role.name === '「🚻」 Miembro');
@@ -15,8 +17,10 @@ module.exports = async (client, Discord, member) => {
   const background = await loadImage('./images/welcome.png');
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
+  canvas.registerFont('../fonts/OCER.TTF', {family: 'OCR'});
+
   //Letras de bienvenida
-  ctx.font = '48px sans-serif';
+  ctx.font = '48px "OCR"';
   ctx.fillStyle = '#ffffff';
   ctx.textAlign = 'center';
   ctx.fillText(`¡Bienvenido a MysthicArk!`, canvas.width / 2, canvas.height / 3.6);
@@ -38,7 +42,7 @@ module.exports = async (client, Discord, member) => {
 
   const attachmentFile = new Discord.AttachmentBuilder(canvas.toBuffer(), {name: 'welcome.png'});
 
-  const channel = client.channels.cache.get('1021615543549169765');
+  const channel = client.channels.cache.get(config.channelWelcome);
   if(!channel) return console.log("El canal no existe.");
 
   channel.send({
