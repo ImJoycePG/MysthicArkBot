@@ -6,7 +6,8 @@
 
 <h2 align="left">Languages:</h3>
 <p align="left">
-<a href="https://discord.js.org/#/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/discordjs/discordjs-original.svg" alt="java" width="40" height="40"/> </a>
+<a href="https://discord.js.org/#/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/discordjs/discordjs-original.svg" alt="discordJS" width="40" height="40"/> </a>
+<a href="https://nodejs.org/en/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/1119b9f84c0290e0f0b38982099a2bd027a48bf1/icons/nodejs/nodejs-original.svg" alt="nodeJS" width="40" height="40"/> </a>
 
 <h2 align="left">Developer</h3>
 
