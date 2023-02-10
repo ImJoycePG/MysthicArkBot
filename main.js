@@ -1,14 +1,17 @@
 const config = new require('./config.json');
+const fs = require("fs");
 
-const Discord= require('discord.js');
-const client = new Discord.Client({ intents: [Discord.GatewayIntentBits.Guilds]});
+const discord= require('discord.js');
+const client = new discord.Client({ intents: [discord.GatewayIntentBits.Guilds, discord.GatewayIntentBits.GuildMessages, discord.GatewayIntentBits.GuildMembers]});
 
-const readyEvent = require('./Events/ReadyEvent.js');
-
-client.on('ready', () => {
-    readyEvent.ready(client);
-    console.log(`${client.user.username} ha encendido correctamente.`);
+fs.readdir('./events/', (err, files) => {
+    if (err) return console.error(err);
+    files.forEach(file => {
+      if (!file.endsWith('.js')) return;
+      const event = require(`./events/${file}`);
+      const eventName = file.split('.')[0];
+      client.on(eventName, event.bind(null, client, discord));
+    });
 });
-
 
 client.login(config.token);
