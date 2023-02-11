@@ -1,11 +1,8 @@
 const config = new require('../config.json');
 
 module.exports = async (client, Discord, member) => {
-  const { createCanvas, loadImage, Canvas } = require('canvas');
+  const { createCanvas, loadImage } = require('canvas');
 
-  //AUTO ROLE
-  const role = member.guild.roles.cache.find((role) => role.name === '「🚻」 Miembro');
-  member.roles.add(role);
 
 
   //JOIN MESSAGE CANVA
@@ -17,16 +14,18 @@ module.exports = async (client, Discord, member) => {
   const background = await loadImage('./images/welcome.png');
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
+  canvas.registerFont('../fonts/OCER.TTF', {family: 'OCR'});
+
   //Letras de bienvenida
   ctx.font = '48px sans-serif';
   ctx.fillStyle = '#ffffff';
   ctx.textAlign = 'center';
-  ctx.fillText(`¡Bienvenido a MysthicArk!`, canvas.width / 2, canvas.height / 3.6);
+  ctx.fillText(`¡Hasta luego, ${member.user.username}!`, canvas.width / 2, canvas.height / 3.6);
 
   ctx.font = '48px sans-serif';
   ctx.fillStyle = '#ffffff';
   ctx.textAlign = 'center';
-  ctx.fillText(`Disfruta la estadía, ${member.user.username}`, canvas.width / 2, canvas.height / 1.3);
+  ctx.fillText(`¡Esperamos que vuelvas!`, canvas.width / 2, canvas.height / 1.3);
 
   //Avatar Display
   ctx.beginPath();
@@ -40,7 +39,7 @@ module.exports = async (client, Discord, member) => {
 
   const attachmentFile = new Discord.AttachmentBuilder(canvas.toBuffer(), {name: 'welcome.png'});
 
-  const channel = client.channels.cache.get(config.channelWelcome);
+  const channel = client.channels.cache.get(config.channelGoodbye);
   if(!channel) return console.log("El canal no existe.");
 
   channel.send({
