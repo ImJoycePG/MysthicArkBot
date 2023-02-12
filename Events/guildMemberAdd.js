@@ -41,7 +41,7 @@ module.exports = async (client, Discord, member) => {
   const attachmentFile = new Discord.AttachmentBuilder(canvas.toBuffer(), {name: 'welcome.png'});
 
   const channel = client.channels.cache.get(config.channelWelcome);
-  if(!channel) return console.log("El canal no existe.");
+  if(!channel) return console.log("The channel does not exist.");
 
   channel.send({
     files: [attachmentFile]

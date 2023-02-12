@@ -1,8 +1,14 @@
 const config = new require('./config.json');
 const fs = require("fs");
 
-const discord= require('discord.js');
-const client = new discord.Client({ intents: [discord.GatewayIntentBits.Guilds, discord.GatewayIntentBits.GuildMessages, discord.GatewayIntentBits.GuildMembers]});
+const discord = require('discord.js');
+const client = new discord.Client({ intents: [
+    discord.GatewayIntentBits.Guilds, 
+    discord.GatewayIntentBits.GuildMessages, 
+    discord.GatewayIntentBits.GuildMembers,
+    discord.GatewayIntentBits.MessageContent,
+  ]
+});
 
 fs.readdir('./events/', (err, files) => {
     if (err) return console.error(err);
