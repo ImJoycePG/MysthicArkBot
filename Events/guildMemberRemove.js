@@ -14,8 +14,6 @@ module.exports = async (client, Discord, member) => {
   const background = await loadImage('./images/welcome.png');
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
-  canvas.registerFont('../fonts/OCER.TTF', {family: 'OCR'});
-
   //Letras de bienvenida
   ctx.font = '48px sans-serif';
   ctx.fillStyle = '#ffffff';

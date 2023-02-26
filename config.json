@@ -1,5 +1,7 @@
 {
-    "token": "",
+    "token": "ODI0MzE0OTcwMTExMDgyNTE2.GIuQu-.k1cvGVrgKmSmNeUyHkv5Tr3uJoR5BZqZNLQlz4",
     "channelLoadBot": "1072979028987883670",
-    "channelWelcome": "1021615543549169765"
+    "channelWelcome": "1021615543549169765",
+    "channelGoodbye": "1021615573496508456",
+    "channelLogsMessage": "1072979028987883670"
 }
