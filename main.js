@@ -5,7 +5,7 @@ const client = new discord.Client({ intents: [
     discord.GatewayIntentBits.Guilds, 
     discord.GatewayIntentBits.GuildMessages, 
     discord.GatewayIntentBits.GuildMembers,
-    discord.GatewayIntentBits.MessageContent,
+    discord.GatewayIntentBits.MessageContent
 ]});
 
 client.events = new discord.Collection();
