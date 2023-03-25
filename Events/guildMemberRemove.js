@@ -1,46 +1,27 @@
-const config = new require('../config.json');
+
+const config = require('../config.json');
+const Discord = require('discord.js');
+
+/**
+ *
+ * @param {Discord.Client} client
+ * @param {Discord} Discord
+ * @param {Discord.GuildMember} member
+ */
 
 module.exports = async (client, Discord, member) => {
-  const { createCanvas, loadImage } = require('canvas');
+    const leaveMember = new Discord.EmbedBuilder();
+    leaveMember.setTitle(`**🌠 Vuelve pronto a MysthicArk Studio🌠**`)
+    leaveMember.setColor('#634edb');
+    leaveMember.setThumbnail(member.displayAvatarURL().replace("webp", "png"));
+    leaveMember.setDescription(
+        `▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ \n \n 
+        🎮 Espero hayas disfrutado tu estadía en el servidor de discord. \n \n 
+        ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬`);
+    leaveMember.setImage('https://i.imgur.com/yDjjtKz.gif');
 
+    const channel = client.channels.cache.get(config.channelGoodbye);
+    if(!channel) return console.log("The channel does not exist.");
 
-
-  //JOIN MESSAGE CANVA
-  const canvas = createCanvas(1200, 600);
-  const ctx = canvas.getContext('2d');
-
-
-  //Background
-  const background = await loadImage('./images/welcome.png');
-  ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-
-  //Letras de bienvenida
-  ctx.font = '48px sans-serif';
-  ctx.fillStyle = '#ffffff';
-  ctx.textAlign = 'center';
-  ctx.fillText(`¡Hasta luego, ${member.user.username}!`, canvas.width / 2, canvas.height / 3.6);
-
-  ctx.font = '48px sans-serif';
-  ctx.fillStyle = '#ffffff';
-  ctx.textAlign = 'center';
-  ctx.fillText(`¡Esperamos que vuelvas!`, canvas.width / 2, canvas.height / 1.3);
-
-  //Avatar Display
-  ctx.beginPath();
-  ctx.arc(canvas.width / 2, canvas.height / 2, 100, 0, 2 * Math.PI, true);
-  ctx.closePath();
-  ctx.clip();
-
-
-  const avatar = await loadImage(member.user.displayAvatarURL({size: 1024}).replace(".webp", ".png"));
-  ctx.drawImage(avatar, canvas.width / 2 - 100, canvas.height / 2 - 100, 200, 200);
-
-  const attachmentFile = new Discord.AttachmentBuilder(canvas.toBuffer(), {name: 'welcome.png'});
-
-  const channel = client.channels.cache.get(config.channelGoodbye);
-  if(!channel) return console.log("El canal no existe.");
-
-  channel.send({
-    files: [attachmentFile]
-  });
+    channel.send({ embeds: [ leaveMember ]});
 };

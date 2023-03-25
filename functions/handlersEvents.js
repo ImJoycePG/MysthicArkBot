@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-module.exports = (client, discord) => {
+module.exports = async (client, discord) => {
     fs.readdir('./events/', (err, files) => {
         if (err) return console.error(err);
         files.forEach(file => {

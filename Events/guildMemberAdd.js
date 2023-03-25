@@ -1,49 +1,33 @@
-const config = new require('../config.json');
+
+const config = require('../config.json');
+const Discord = require('discord.js');
+
+/**
+ *
+ * @param {Discord.Client} client
+ * @param {Discord} Discord
+ * @param {Discord.GuildMember} member
+ */
 
 module.exports = async (client, Discord, member) => {
-  const { createCanvas, loadImage, Canvas } = require('canvas');
+    const joinMember = new Discord.EmbedBuilder();
+    joinMember.setTitle(`**🌠 Bienvenid@ a MysthicArk Studio🌠**`)
+    joinMember.setColor('#634edb');
+    joinMember.setThumbnail(member.displayAvatarURL().replace("webp", "png"));
+    joinMember.setDescription(
+        `▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ \n \n 
+        🎮 Espero disfrutes tu estadía en el servidor al igual aquí en nuestro discord. \n \n 
+        🎯 Te invito a pasar por <#931027995706138645> para que sepas que es lo que está permitido. \n \n 
+        📪 Visita <#931027974877241404> para estar enterado de todo. \n \n 
+        📑 Ingresa a <#1021619212281712680>  para dialogar con todos. \n \n 
+        💻 ¿Necesitas ayuda? Ve a <#931028781974585354> y abre un ticket segun tu necesidad. \n \n 
+        ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬`);
+    joinMember.setImage('https://i.imgur.com/yDjjtKz.gif');
 
-  //AUTO ROLE
-  const role = member.guild.roles.cache.find((role) => role.name === '「🚻」 Miembro');
-  member.roles.add(role);
+    const channel = client.channels.cache.get(config.channelWelcome);
+    if(!channel) return console.log("The channel does not exist.");
+    var role = member.guild.roles.cache.find(role => role.id === config.memberRoleJoin);
+    member.roles.add(role);
 
-
-  //JOIN MESSAGE CANVA
-  const canvas = createCanvas(1200, 600);
-  const ctx = canvas.getContext('2d');
-
-
-  //Background
-  const background = await loadImage('./images/welcome.png');
-  ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-
-  //Letras de bienvenida
-  ctx.font = '48px sans-serif';
-  ctx.fillStyle = '#ffffff';
-  ctx.textAlign = 'center';
-  ctx.fillText(`¡Bienvenido a MysthicArk!`, canvas.width / 2, canvas.height / 3.6);
-
-  ctx.font = '48px sans-serif';
-  ctx.fillStyle = '#ffffff';
-  ctx.textAlign = 'center';
-  ctx.fillText(`Disfruta la estadía, ${member.user.username}`, canvas.width / 2, canvas.height / 1.3);
-
-  //Avatar Display
-  ctx.beginPath();
-  ctx.arc(canvas.width / 2, canvas.height / 2, 100, 0, 2 * Math.PI, true);
-  ctx.closePath();
-  ctx.clip();
-
-
-  const avatar = await loadImage(member.user.displayAvatarURL({size: 1024}).replace(".webp", ".png"));
-  ctx.drawImage(avatar, canvas.width / 2 - 100, canvas.height / 2 - 100, 200, 200);
-
-  const attachmentFile = new Discord.AttachmentBuilder(canvas.toBuffer(), {name: 'welcome.png'});
-
-  const channel = client.channels.cache.get(config.channelWelcome);
-  if(!channel) return console.log("The channel does not exist.");
-
-  channel.send({
-    files: [attachmentFile]
-  });
+    channel.send({ embeds: [ joinMember ]});
 };
